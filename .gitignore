@@ -16,3 +16,7 @@ __pycache__/
 .idea/
 
 .env
+
+# Archivos de datos
+training_data/
+testing_data/
