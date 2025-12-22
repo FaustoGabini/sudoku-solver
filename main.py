@@ -1,10 +1,19 @@
-from SudokuSolver import SudokuSolver
+from SudokuVision import SudokuVision
+from DigitRecognizer import DigitRecognizer
 import cv2 as cv
 import numpy as np
 
 
-solver = SudokuSolver("images/sudoku.jpg")
+solver = SudokuVision("images/sudoku.jpg", debug=True)
+recognizer = DigitRecognizer("trained.keras")
 
-board = solver.extract_board(debug=True)
+solver.process_board()
+digits = solver.extract_cells()
 
-digits = solver.extract_digits(debug=True)
+sudoku_matrix = recognizer.predict_board(digits)
+
+print("Sudoku Matrix:")
+print(sudoku_matrix)
+
+solution = solver.draw_solution(sudoku_matrix)
+
