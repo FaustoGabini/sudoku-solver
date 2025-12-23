@@ -20,3 +20,5 @@ __pycache__/
 # Archivos de datos
 training_data/
 testing_data/
+
+.DS_Store
