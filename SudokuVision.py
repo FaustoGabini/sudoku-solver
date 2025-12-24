@@ -24,7 +24,10 @@ class SudokuVision:
     return img
   
   def _show_image(self, name, img): 
-    cv.imshow(name, img)
+    # Que la ventana sea de 450 x 450
+    img_resized = cv.resize(img, (450, 450))
+    
+    cv.imshow(name, img_resized)
     
 
   def _order_points(self, pts): 
@@ -100,7 +103,7 @@ class SudokuVision:
     self.solution_img = cv.addWeighted(overlay, self.ALPHA, self.solution_img, 1 - self.ALPHA, 0)
 
     # Dibujamos el borde exterior del contorno
-    cv.drawContours(self.solution_img, [grid_contour], -1, (0, 200, 0), 3)
+    cv.drawContours(self.solution_img, [grid_contour], -1, (0, 255, 0), 3)
     
     # Transformacion de perspectiva
     # Ordenamos las esquinas (arriba-izq, arriba-der, abajo-der, abajo-izq)
@@ -140,11 +143,11 @@ class SudokuVision:
       p1 = tuple(pts_orig_h[0][0].astype(int))
       p2 = tuple(pts_orig_h[1][0].astype(int))
 
-      cv.line(self.solution_img, p1, p2, (0, 200, 0), thickness)
+      cv.line(self.solution_img, p1, p2, (0, 255, 0), thickness)
 
       p1 = tuple(pts_orig_v[0][0].astype(int))
       p2 = tuple(pts_orig_v[1][0].astype(int))
-      cv.line(self.solution_img, p1, p2, (0, 200, 0), thickness)
+      cv.line(self.solution_img, p1, p2, (0, 255, 0), thickness)
   
     self.binary_board = cv.warpPerspective(img_binary, self.transform_matrix, (self.SIDE_LEN, self.SIDE_LEN))
     self.sudoku_board = cv.warpPerspective(img_gray, self.transform_matrix, (self.SIDE_LEN, self.SIDE_LEN))
@@ -219,7 +222,7 @@ class SudokuVision:
     return digits
 
   
-  def draw_solution(self, sudoku_matrix): 
+  def draw_solution(self, sudoku_matrix, sudoku_solution): 
     if self.transform_matrix is None: 
       raise ValueError("La transformación de perspectiva no ha sido calculada.")
     
@@ -231,14 +234,14 @@ class SudokuVision:
       for j in range(9): 
         num = sudoku_matrix[i][j]
         if num == 0: 
-          text = str(np.random.randint(1, 10))
+          text = str(sudoku_solution[i][j])
           font = cv.FONT_HERSHEY_SIMPLEX
           font_scale = 1
           thickness = 3
           text_size, _ = cv.getTextSize(text, font, font_scale, thickness)
           text_x = j * cell_size + (cell_size - text_size[0]) // 2
           text_y = i * cell_size + (cell_size + text_size[1]) // 2
-          cv.putText(solution_img, text, (text_x, text_y), font, font_scale, (0, 200, 0), thickness)
+          cv.putText(solution_img, text, (text_x, text_y), font, font_scale, (0, 255, 0), thickness)
     
     # Invertimos la transformación de perspectiva
     matrix_inv = np.linalg.inv(self.transform_matrix)
