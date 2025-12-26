@@ -25,9 +25,9 @@ class SudokuVision:
   
   def _show_image(self, name, img): 
     # Que la ventana sea de 450 x 450
-    img_resized = cv.resize(img, (450, 450))
+    #img_resized = cv.resize(img, (450, 450))
     
-    cv.imshow(name, img_resized)
+    cv.imshow(name, img)
     
 
   def _order_points(self, pts): 
