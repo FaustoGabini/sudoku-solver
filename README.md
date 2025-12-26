@@ -25,3 +25,28 @@ A partir de la vista transformada, el tablero se divide en una grilla de **9 × 
 Para la clasificación de dígitos se entrenó una **red neuronal convolucional (CNN)** utilizando **Keras**. El dataset fue construido de forma personalizada mediante la **API de Google Fonts**, generando más de **10.000 imágenes** de los dígitos del 1 al 9 con distintas tipografías. Esto permite una mejor generalización frente a estilos no manuscritos y fuentes variadas.
 
 Una vez clasificados los dígitos, el tablero se representa como una matriz y se utiliza un **algoritmo recursivo de backtracking** para resolver el Sudoku y obtener una solución válida.
+
+## Instalación
+
+Seguí estos pasos para configurar el proyecto de forma local:
+
+1. Clonar el repositorio:
+    ```bash
+    git clone https://github.com/rg1990/cv-sudoku-solver.git
+    cd cv-sudoku-solver
+    ```
+2. Crear un entorno virtual (opcional pero recomendado)
+    ```bash
+    python -m venv venv
+    venv\Scripts\activate
+    ```
+3. Instalar las dependencias necesarias
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+## Notas
+
+-   Se recomienda utilizar imágenes con buena resolución y contraste para mejorar la detección del tablero y los dígitos.
+
+-   El sistema está diseñado para Sudokus clásicos de 9 × 9.
